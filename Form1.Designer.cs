@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbControl = new System.Windows.Forms.TabControl();
             this.tbpLogin = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,9 +46,10 @@
             this.tbxRegisterName = new System.Windows.Forms.TextBox();
             this.tbpGame = new System.Windows.Forms.TabPage();
             this.pnlChooseGameMode = new System.Windows.Forms.Panel();
-            this.btnGameModeOne = new System.Windows.Forms.Button();
-            this.btnGameModeTwo = new System.Windows.Forms.Button();
             this.btnGameModeThree = new System.Windows.Forms.Button();
+            this.btnGameModeTwo = new System.Windows.Forms.Button();
+            this.btnGameModeOne = new System.Windows.Forms.Button();
+            this.tmrGame = new System.Windows.Forms.Timer(this.components);
             this.tbControl.SuspendLayout();
             this.tbpLogin.SuspendLayout();
             this.tbpRegister.SuspendLayout();
@@ -222,15 +224,15 @@
             this.pnlChooseGameMode.Size = new System.Drawing.Size(349, 381);
             this.pnlChooseGameMode.TabIndex = 0;
             // 
-            // btnGameModeOne
+            // btnGameModeThree
             // 
-            this.btnGameModeOne.Location = new System.Drawing.Point(120, 71);
-            this.btnGameModeOne.Name = "btnGameModeOne";
-            this.btnGameModeOne.Size = new System.Drawing.Size(75, 23);
-            this.btnGameModeOne.TabIndex = 0;
-            this.btnGameModeOne.Text = "button1";
-            this.btnGameModeOne.UseVisualStyleBackColor = true;
-            this.btnGameModeOne.Click += new System.EventHandler(this.btnGameModeOne_Click);
+            this.btnGameModeThree.Location = new System.Drawing.Point(120, 181);
+            this.btnGameModeThree.Name = "btnGameModeThree";
+            this.btnGameModeThree.Size = new System.Drawing.Size(75, 23);
+            this.btnGameModeThree.TabIndex = 2;
+            this.btnGameModeThree.Text = "button3";
+            this.btnGameModeThree.UseVisualStyleBackColor = true;
+            this.btnGameModeThree.Click += new System.EventHandler(this.btnGameModeThree_Click);
             // 
             // btnGameModeTwo
             // 
@@ -242,15 +244,15 @@
             this.btnGameModeTwo.UseVisualStyleBackColor = true;
             this.btnGameModeTwo.Click += new System.EventHandler(this.btnGameModeTwo_Click);
             // 
-            // btnGameModeThree
+            // btnGameModeOne
             // 
-            this.btnGameModeThree.Location = new System.Drawing.Point(120, 181);
-            this.btnGameModeThree.Name = "btnGameModeThree";
-            this.btnGameModeThree.Size = new System.Drawing.Size(75, 23);
-            this.btnGameModeThree.TabIndex = 2;
-            this.btnGameModeThree.Text = "button3";
-            this.btnGameModeThree.UseVisualStyleBackColor = true;
-            this.btnGameModeThree.Click += new System.EventHandler(this.btnGameModeThree_Click);
+            this.btnGameModeOne.Location = new System.Drawing.Point(120, 71);
+            this.btnGameModeOne.Name = "btnGameModeOne";
+            this.btnGameModeOne.Size = new System.Drawing.Size(75, 23);
+            this.btnGameModeOne.TabIndex = 0;
+            this.btnGameModeOne.Text = "button1";
+            this.btnGameModeOne.UseVisualStyleBackColor = true;
+            this.btnGameModeOne.Click += new System.EventHandler(this.btnGameModeOne_Click);
             // 
             // Form1
             // 
@@ -294,6 +296,7 @@
         private System.Windows.Forms.Button btnGameModeThree;
         private System.Windows.Forms.Button btnGameModeTwo;
         private System.Windows.Forms.Button btnGameModeOne;
+        private System.Windows.Forms.Timer tmrGame;
     }
 }
 

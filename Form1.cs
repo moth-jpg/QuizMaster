@@ -15,6 +15,18 @@ namespace QuizMaster
 {
     public partial class Form1 : Form
     {
+        int gameTime = 60;
+        int currentTime = 0;
+        DataTable dataTable = null;
+        int row = 0;
+
+        Question question = null;
+        List<Question> questionList = null;
+        List<Question> currentQuestions = null;
+
+        Random random = new Random();
+        int currentQuestion = 0;
+
         string connectionString = @"Data Source = localhost;Initial Catalog=quizmaster; User Id=root;password=''";
         public Form1()
         {
@@ -137,17 +149,97 @@ namespace QuizMaster
 
         private void btnGameModeOne_Click(object sender, EventArgs e)
         {
-
+            currentTime = gameTime;
+            GameModeOne();
+            StartQuiz(); ;
         }
 
         private void btnGameModeTwo_Click(object sender, EventArgs e)
         {
-
+            currentTime = gameTime;
+            GameModeTwo();
+            StartQuiz();
         }
 
         private void btnGameModeThree_Click(object sender, EventArgs e)
         {
+            currentTime = gameTime;
+            GameModeThree();
+            StartQuiz();
+        }
 
+        private void StartQuiz()
+        {
+            ShuffleList();
+            currentQuestion = 0;
+            lblQuestion.Text = currentQuestions[currentQuestion].GetQuestion();
+            tmrGame.Start();
+        }
+
+        /// <summary>
+        /// RANDOMISING LIST SO EACH QUIZ WILL BE UNIQUE
+        /// </summary>
+        private void ShuffleList()
+        {
+            for(int i = currentQuestions.Count -1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                Question temp = questionList[i];
+                questionList[i] = questionList[j];
+                questionList[j] = temp;
+            }
+        }
+
+        private void GameModeOne()
+        {
+            currentQuestions = questionList.ToList();
+        }
+
+        private void GameModeTwo()
+        {
+            currentQuestions = questionList.GetRange(50, 50);
+        }
+
+        private void GameModeThree()
+        {
+            currentQuestions = questionList.GetRange(100, 50);
+        }
+
+        private void GetAllQuestions()
+        {
+            questionList = new List<Question>();
+            row = 0;
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                if(conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                using(dataTable = new DataTable("questions"))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand("Select * FROM questions", conn))
+                    {
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            if(dataTable.Rows.Count > 0)
+            {
+                //Loop through all the rows found in the database
+                foreach(DataRow rows in dataTable.Rows)
+                {
+                    question = new Question(Convert.ToInt32(dataTable.Rows[row][0]), dataTable.Rows[row][1].ToString(), dataTable.Rows[row][2].ToString());
+                    questionList.Add(question);
+                    row++;
+                }
+            }
+            else
+            {
+                MessageBox.Show("No items found");
+            }
         }
     }
 }
