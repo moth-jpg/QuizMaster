@@ -35,7 +35,10 @@ namespace QuizMaster
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            btnAnswerOne.Click += CheckAnswer;
+            btnAnswerTwo.Click += CheckAnswer;
+            btnAnswerThree.Click += CheckAnswer;
+            btnAnswerFour.Click += CheckAnswer;
         }
 
         private void btnRegisterHere_Click(object sender, EventArgs e)
@@ -150,29 +153,44 @@ namespace QuizMaster
         private void btnGameModeOne_Click(object sender, EventArgs e)
         {
             currentTime = gameTime;
+            GetAllQuestions();
             GameModeOne();
             StartQuiz(); ;
+
+            pnlGame.Visible = true;
         }
 
         private void btnGameModeTwo_Click(object sender, EventArgs e)
         {
             currentTime = gameTime;
+            GetAllQuestions();
             GameModeTwo();
             StartQuiz();
+
+            pnlGame.Visible = true;
         }
 
         private void btnGameModeThree_Click(object sender, EventArgs e)
         {
             currentTime = gameTime;
+            GetAllQuestions();
             GameModeThree();
             StartQuiz();
+
+            pnlGame.Visible = true;
         }
 
         private void StartQuiz()
         {
+            if(currentQuestions == null || currentQuestions.Count == 0)
+            {
+                MessageBox.Show("No Questions available!");
+                return;
+            }
+
             ShuffleList();
             currentQuestion = 0;
-            lblQuestion.Text = currentQuestions[currentQuestion].GetQuestion();
+            DisplayQuestion();
             tmrGame.Start();
         }
 
@@ -197,12 +215,12 @@ namespace QuizMaster
 
         private void GameModeTwo()
         {
-            currentQuestions = questionList.GetRange(50, 50);
+            currentQuestions = questionList.GetRange(20, 20);
         }
 
         private void GameModeThree()
         {
-            currentQuestions = questionList.GetRange(100, 50);
+            currentQuestions = questionList.GetRange(40, 20);
         }
 
         private void GetAllQuestions()
@@ -220,7 +238,7 @@ namespace QuizMaster
                 {
                     using (MySqlCommand cmd = new MySqlCommand("Select * FROM questions", conn))
                     {
-                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                         adapter.Fill(dataTable);
                     }
                 }
@@ -231,7 +249,7 @@ namespace QuizMaster
                 //Loop through all the rows found in the database
                 foreach(DataRow rows in dataTable.Rows)
                 {
-                    question = new Question(Convert.ToInt32(dataTable.Rows[row][0]), dataTable.Rows[row][1].ToString(), dataTable.Rows[row][2].ToString());
+                    question = new Question(Convert.ToInt32(dataTable.Rows[row][0]), dataTable.Rows[row][1].ToString(), dataTable.Rows[row][2].ToString(), dataTable.Rows[row][3].ToString(), dataTable.Rows[row][4].ToString(),dataTable.Rows[row][5].ToString());
                     questionList.Add(question);
                     row++;
                 }
@@ -239,6 +257,72 @@ namespace QuizMaster
             else
             {
                 MessageBox.Show("No items found");
+            }
+        }
+
+        private void DisplayQuestion()
+        {
+            //get the current question
+            Question q = currentQuestions[currentQuestion];
+
+            //display teh question
+            lblQuestion.Text = q.GetQuestion();
+
+            //Put all 4 answers into a list
+            List<string> answers = new List<string>
+            {
+                q.GetCorrectAnswer(),
+                q.GetFalseAnswerOne(),
+                q.GetFalseAnswerTwo(),
+                q.GetFalseAnswerThree(),
+            };
+
+            //Shuffle all the answers 
+            for(int i = answers.Count - 1; i >0;  i--)
+            {
+                int j = random.Next(i + 1);
+
+                string temp = answers[i];
+                answers[i] = answers[j];
+                answers[j] = temp;
+            }
+
+            //Assign the shuffles answers to the buttons
+            btnAnswerOne.Text = answers[0];
+            btnAnswerTwo.Text = answers[1];
+            btnAnswerTwo.Text = answers[2];
+            btnAnswerFour.Text = answers[3];
+        }
+
+        private void CheckAnswer(object sender,  EventArgs e)
+        {
+            Button clickedButton = sender as Button;
+
+            //Get the correct answer for this question
+            string correctAnswer = currentQuestions[currentQuestion].GetCorrectAnswer();
+
+            //checked the clicked button
+            if(clickedButton.Text == correctAnswer)
+            {
+                MessageBox.Show("Correct!");
+            }
+            else
+            {
+                MessageBox.Show("Wrong answer");
+            }
+
+            // Move to the next question
+            currentQuestion++;
+
+            // Check if there are more questions
+            if (currentQuestion < currentQuestions.Count)
+            {
+                DisplayQuestion();
+            }
+            else
+            {
+                tmrGame.Stop();
+                MessageBox.Show("Quiz completed!");
             }
         }
     }

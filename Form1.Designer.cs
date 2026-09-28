@@ -45,16 +45,23 @@
             this.tbxRegisterPassword = new System.Windows.Forms.TextBox();
             this.tbxRegisterName = new System.Windows.Forms.TextBox();
             this.tbpGame = new System.Windows.Forms.TabPage();
+            this.lblQuestion = new System.Windows.Forms.Label();
             this.pnlChooseGameMode = new System.Windows.Forms.Panel();
             this.btnGameModeThree = new System.Windows.Forms.Button();
             this.btnGameModeTwo = new System.Windows.Forms.Button();
             this.btnGameModeOne = new System.Windows.Forms.Button();
             this.tmrGame = new System.Windows.Forms.Timer(this.components);
+            this.pnlGame = new System.Windows.Forms.Panel();
+            this.btnAnswerOne = new System.Windows.Forms.Button();
+            this.btnAnswerTwo = new System.Windows.Forms.Button();
+            this.btnAnswerThree = new System.Windows.Forms.Button();
+            this.btnAnswerFour = new System.Windows.Forms.Button();
             this.tbControl.SuspendLayout();
             this.tbpLogin.SuspendLayout();
             this.tbpRegister.SuspendLayout();
             this.tbpGame.SuspendLayout();
             this.pnlChooseGameMode.SuspendLayout();
+            this.pnlGame.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbControl
@@ -206,6 +213,7 @@
             // 
             // tbpGame
             // 
+            this.tbpGame.Controls.Add(this.pnlGame);
             this.tbpGame.Controls.Add(this.pnlChooseGameMode);
             this.tbpGame.Location = new System.Drawing.Point(4, 25);
             this.tbpGame.Name = "tbpGame";
@@ -214,45 +222,102 @@
             this.tbpGame.Text = "Game";
             this.tbpGame.UseVisualStyleBackColor = true;
             // 
+            // lblQuestion
+            // 
+            this.lblQuestion.AutoSize = true;
+            this.lblQuestion.Location = new System.Drawing.Point(57, 52);
+            this.lblQuestion.Name = "lblQuestion";
+            this.lblQuestion.Size = new System.Drawing.Size(44, 16);
+            this.lblQuestion.TabIndex = 1;
+            this.lblQuestion.Text = "label5";
+            // 
             // pnlChooseGameMode
             // 
             this.pnlChooseGameMode.Controls.Add(this.btnGameModeThree);
             this.pnlChooseGameMode.Controls.Add(this.btnGameModeTwo);
             this.pnlChooseGameMode.Controls.Add(this.btnGameModeOne);
-            this.pnlChooseGameMode.Location = new System.Drawing.Point(418, 2);
+            this.pnlChooseGameMode.Location = new System.Drawing.Point(393, 2);
             this.pnlChooseGameMode.Name = "pnlChooseGameMode";
-            this.pnlChooseGameMode.Size = new System.Drawing.Size(349, 381);
+            this.pnlChooseGameMode.Size = new System.Drawing.Size(374, 381);
             this.pnlChooseGameMode.TabIndex = 0;
             // 
             // btnGameModeThree
             // 
-            this.btnGameModeThree.Location = new System.Drawing.Point(120, 181);
+            this.btnGameModeThree.Location = new System.Drawing.Point(135, 205);
             this.btnGameModeThree.Name = "btnGameModeThree";
-            this.btnGameModeThree.Size = new System.Drawing.Size(75, 23);
+            this.btnGameModeThree.Size = new System.Drawing.Size(90, 44);
             this.btnGameModeThree.TabIndex = 2;
-            this.btnGameModeThree.Text = "button3";
+            this.btnGameModeThree.Text = "Books";
             this.btnGameModeThree.UseVisualStyleBackColor = true;
             this.btnGameModeThree.Click += new System.EventHandler(this.btnGameModeThree_Click);
             // 
             // btnGameModeTwo
             // 
-            this.btnGameModeTwo.Location = new System.Drawing.Point(120, 120);
+            this.btnGameModeTwo.Location = new System.Drawing.Point(135, 147);
             this.btnGameModeTwo.Name = "btnGameModeTwo";
-            this.btnGameModeTwo.Size = new System.Drawing.Size(75, 23);
+            this.btnGameModeTwo.Size = new System.Drawing.Size(87, 40);
             this.btnGameModeTwo.TabIndex = 1;
-            this.btnGameModeTwo.Text = "button2";
+            this.btnGameModeTwo.Text = "Games";
             this.btnGameModeTwo.UseVisualStyleBackColor = true;
             this.btnGameModeTwo.Click += new System.EventHandler(this.btnGameModeTwo_Click);
             // 
             // btnGameModeOne
             // 
-            this.btnGameModeOne.Location = new System.Drawing.Point(120, 71);
+            this.btnGameModeOne.Location = new System.Drawing.Point(135, 78);
             this.btnGameModeOne.Name = "btnGameModeOne";
-            this.btnGameModeOne.Size = new System.Drawing.Size(75, 23);
+            this.btnGameModeOne.Size = new System.Drawing.Size(90, 43);
             this.btnGameModeOne.TabIndex = 0;
-            this.btnGameModeOne.Text = "button1";
+            this.btnGameModeOne.Text = "Standart";
             this.btnGameModeOne.UseVisualStyleBackColor = true;
             this.btnGameModeOne.Click += new System.EventHandler(this.btnGameModeOne_Click);
+            // 
+            // pnlGame
+            // 
+            this.pnlGame.Controls.Add(this.btnAnswerFour);
+            this.pnlGame.Controls.Add(this.btnAnswerThree);
+            this.pnlGame.Controls.Add(this.btnAnswerTwo);
+            this.pnlGame.Controls.Add(this.btnAnswerOne);
+            this.pnlGame.Controls.Add(this.lblQuestion);
+            this.pnlGame.Location = new System.Drawing.Point(3, 0);
+            this.pnlGame.Name = "pnlGame";
+            this.pnlGame.Size = new System.Drawing.Size(390, 383);
+            this.pnlGame.TabIndex = 1;
+            // 
+            // btnAnswerOne
+            // 
+            this.btnAnswerOne.Location = new System.Drawing.Point(91, 102);
+            this.btnAnswerOne.Name = "btnAnswerOne";
+            this.btnAnswerOne.Size = new System.Drawing.Size(178, 41);
+            this.btnAnswerOne.TabIndex = 2;
+            this.btnAnswerOne.Text = "button1";
+            this.btnAnswerOne.UseVisualStyleBackColor = true;
+            // 
+            // btnAnswerTwo
+            // 
+            this.btnAnswerTwo.Location = new System.Drawing.Point(91, 148);
+            this.btnAnswerTwo.Name = "btnAnswerTwo";
+            this.btnAnswerTwo.Size = new System.Drawing.Size(178, 41);
+            this.btnAnswerTwo.TabIndex = 3;
+            this.btnAnswerTwo.Text = "button2";
+            this.btnAnswerTwo.UseVisualStyleBackColor = true;
+            // 
+            // btnAnswerThree
+            // 
+            this.btnAnswerThree.Location = new System.Drawing.Point(90, 196);
+            this.btnAnswerThree.Name = "btnAnswerThree";
+            this.btnAnswerThree.Size = new System.Drawing.Size(179, 41);
+            this.btnAnswerThree.TabIndex = 4;
+            this.btnAnswerThree.Text = "button3";
+            this.btnAnswerThree.UseVisualStyleBackColor = true;
+            // 
+            // btnAnswerFour
+            // 
+            this.btnAnswerFour.Location = new System.Drawing.Point(90, 243);
+            this.btnAnswerFour.Name = "btnAnswerFour";
+            this.btnAnswerFour.Size = new System.Drawing.Size(179, 41);
+            this.btnAnswerFour.TabIndex = 5;
+            this.btnAnswerFour.Text = "button4";
+            this.btnAnswerFour.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -270,6 +335,8 @@
             this.tbpRegister.PerformLayout();
             this.tbpGame.ResumeLayout(false);
             this.pnlChooseGameMode.ResumeLayout(false);
+            this.pnlGame.ResumeLayout(false);
+            this.pnlGame.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -297,6 +364,12 @@
         private System.Windows.Forms.Button btnGameModeTwo;
         private System.Windows.Forms.Button btnGameModeOne;
         private System.Windows.Forms.Timer tmrGame;
+        private System.Windows.Forms.Label lblQuestion;
+        private System.Windows.Forms.Panel pnlGame;
+        private System.Windows.Forms.Button btnAnswerFour;
+        private System.Windows.Forms.Button btnAnswerThree;
+        private System.Windows.Forms.Button btnAnswerTwo;
+        private System.Windows.Forms.Button btnAnswerOne;
     }
 }
 
