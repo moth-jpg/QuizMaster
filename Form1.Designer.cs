@@ -45,23 +45,28 @@
             this.tbxRegisterPassword = new System.Windows.Forms.TextBox();
             this.tbxRegisterName = new System.Windows.Forms.TextBox();
             this.tbpGame = new System.Windows.Forms.TabPage();
+            this.pnlGame = new System.Windows.Forms.Panel();
+            this.btnAnswerFour = new System.Windows.Forms.Button();
+            this.btnAnswerThree = new System.Windows.Forms.Button();
+            this.btnAnswerTwo = new System.Windows.Forms.Button();
+            this.btnAnswerOne = new System.Windows.Forms.Button();
             this.lblQuestion = new System.Windows.Forms.Label();
             this.pnlChooseGameMode = new System.Windows.Forms.Panel();
             this.btnGameModeThree = new System.Windows.Forms.Button();
             this.btnGameModeTwo = new System.Windows.Forms.Button();
             this.btnGameModeOne = new System.Windows.Forms.Button();
+            this.tpLeadboard = new System.Windows.Forms.TabPage();
             this.tmrGame = new System.Windows.Forms.Timer(this.components);
-            this.pnlGame = new System.Windows.Forms.Panel();
-            this.btnAnswerOne = new System.Windows.Forms.Button();
-            this.btnAnswerTwo = new System.Windows.Forms.Button();
-            this.btnAnswerThree = new System.Windows.Forms.Button();
-            this.btnAnswerFour = new System.Windows.Forms.Button();
+            this.dgvLeaderboard = new System.Windows.Forms.DataGridView();
+            this.btnSkipQuestion = new System.Windows.Forms.Button();
             this.tbControl.SuspendLayout();
             this.tbpLogin.SuspendLayout();
             this.tbpRegister.SuspendLayout();
             this.tbpGame.SuspendLayout();
-            this.pnlChooseGameMode.SuspendLayout();
             this.pnlGame.SuspendLayout();
+            this.pnlChooseGameMode.SuspendLayout();
+            this.tpLeadboard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLeaderboard)).BeginInit();
             this.SuspendLayout();
             // 
             // tbControl
@@ -69,11 +74,13 @@
             this.tbControl.Controls.Add(this.tbpLogin);
             this.tbControl.Controls.Add(this.tbpRegister);
             this.tbControl.Controls.Add(this.tbpGame);
+            this.tbControl.Controls.Add(this.tpLeadboard);
             this.tbControl.Location = new System.Drawing.Point(12, 25);
             this.tbControl.Name = "tbControl";
             this.tbControl.SelectedIndex = 0;
             this.tbControl.Size = new System.Drawing.Size(776, 413);
             this.tbControl.TabIndex = 0;
+            this.tbControl.SelectedIndexChanged += new System.EventHandler(this.tbControl_SelectedIndexChanged);
             // 
             // tbpLogin
             // 
@@ -222,6 +229,55 @@
             this.tbpGame.Text = "Game";
             this.tbpGame.UseVisualStyleBackColor = true;
             // 
+            // pnlGame
+            // 
+            this.pnlGame.Controls.Add(this.btnSkipQuestion);
+            this.pnlGame.Controls.Add(this.btnAnswerFour);
+            this.pnlGame.Controls.Add(this.btnAnswerThree);
+            this.pnlGame.Controls.Add(this.btnAnswerTwo);
+            this.pnlGame.Controls.Add(this.btnAnswerOne);
+            this.pnlGame.Controls.Add(this.lblQuestion);
+            this.pnlGame.Location = new System.Drawing.Point(3, 0);
+            this.pnlGame.Name = "pnlGame";
+            this.pnlGame.Size = new System.Drawing.Size(390, 383);
+            this.pnlGame.TabIndex = 1;
+            // 
+            // btnAnswerFour
+            // 
+            this.btnAnswerFour.Location = new System.Drawing.Point(90, 243);
+            this.btnAnswerFour.Name = "btnAnswerFour";
+            this.btnAnswerFour.Size = new System.Drawing.Size(179, 41);
+            this.btnAnswerFour.TabIndex = 5;
+            this.btnAnswerFour.Text = "button4";
+            this.btnAnswerFour.UseVisualStyleBackColor = true;
+            // 
+            // btnAnswerThree
+            // 
+            this.btnAnswerThree.Location = new System.Drawing.Point(90, 196);
+            this.btnAnswerThree.Name = "btnAnswerThree";
+            this.btnAnswerThree.Size = new System.Drawing.Size(179, 41);
+            this.btnAnswerThree.TabIndex = 4;
+            this.btnAnswerThree.Text = "button3";
+            this.btnAnswerThree.UseVisualStyleBackColor = true;
+            // 
+            // btnAnswerTwo
+            // 
+            this.btnAnswerTwo.Location = new System.Drawing.Point(91, 148);
+            this.btnAnswerTwo.Name = "btnAnswerTwo";
+            this.btnAnswerTwo.Size = new System.Drawing.Size(178, 41);
+            this.btnAnswerTwo.TabIndex = 3;
+            this.btnAnswerTwo.Text = "button2";
+            this.btnAnswerTwo.UseVisualStyleBackColor = true;
+            // 
+            // btnAnswerOne
+            // 
+            this.btnAnswerOne.Location = new System.Drawing.Point(91, 102);
+            this.btnAnswerOne.Name = "btnAnswerOne";
+            this.btnAnswerOne.Size = new System.Drawing.Size(178, 41);
+            this.btnAnswerOne.TabIndex = 2;
+            this.btnAnswerOne.Text = "button1";
+            this.btnAnswerOne.UseVisualStyleBackColor = true;
+            // 
             // lblQuestion
             // 
             this.lblQuestion.AutoSize = true;
@@ -271,53 +327,39 @@
             this.btnGameModeOne.UseVisualStyleBackColor = true;
             this.btnGameModeOne.Click += new System.EventHandler(this.btnGameModeOne_Click);
             // 
-            // pnlGame
+            // tpLeadboard
             // 
-            this.pnlGame.Controls.Add(this.btnAnswerFour);
-            this.pnlGame.Controls.Add(this.btnAnswerThree);
-            this.pnlGame.Controls.Add(this.btnAnswerTwo);
-            this.pnlGame.Controls.Add(this.btnAnswerOne);
-            this.pnlGame.Controls.Add(this.lblQuestion);
-            this.pnlGame.Location = new System.Drawing.Point(3, 0);
-            this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(390, 383);
-            this.pnlGame.TabIndex = 1;
+            this.tpLeadboard.Controls.Add(this.dgvLeaderboard);
+            this.tpLeadboard.Location = new System.Drawing.Point(4, 25);
+            this.tpLeadboard.Name = "tpLeadboard";
+            this.tpLeadboard.Size = new System.Drawing.Size(768, 384);
+            this.tpLeadboard.TabIndex = 3;
+            this.tpLeadboard.Text = "tbpLeaderboard";
+            this.tpLeadboard.UseVisualStyleBackColor = true;
             // 
-            // btnAnswerOne
+            // tmrGame
             // 
-            this.btnAnswerOne.Location = new System.Drawing.Point(91, 102);
-            this.btnAnswerOne.Name = "btnAnswerOne";
-            this.btnAnswerOne.Size = new System.Drawing.Size(178, 41);
-            this.btnAnswerOne.TabIndex = 2;
-            this.btnAnswerOne.Text = "button1";
-            this.btnAnswerOne.UseVisualStyleBackColor = true;
+            this.tmrGame.Tick += new System.EventHandler(this.tmrGame_Tick);
             // 
-            // btnAnswerTwo
+            // dgvLeaderboard
             // 
-            this.btnAnswerTwo.Location = new System.Drawing.Point(91, 148);
-            this.btnAnswerTwo.Name = "btnAnswerTwo";
-            this.btnAnswerTwo.Size = new System.Drawing.Size(178, 41);
-            this.btnAnswerTwo.TabIndex = 3;
-            this.btnAnswerTwo.Text = "button2";
-            this.btnAnswerTwo.UseVisualStyleBackColor = true;
+            this.dgvLeaderboard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLeaderboard.Location = new System.Drawing.Point(14, 16);
+            this.dgvLeaderboard.Name = "dgvLeaderboard";
+            this.dgvLeaderboard.RowHeadersWidth = 51;
+            this.dgvLeaderboard.RowTemplate.Height = 24;
+            this.dgvLeaderboard.Size = new System.Drawing.Size(341, 365);
+            this.dgvLeaderboard.TabIndex = 0;
             // 
-            // btnAnswerThree
+            // btnSkipQuestion
             // 
-            this.btnAnswerThree.Location = new System.Drawing.Point(90, 196);
-            this.btnAnswerThree.Name = "btnAnswerThree";
-            this.btnAnswerThree.Size = new System.Drawing.Size(179, 41);
-            this.btnAnswerThree.TabIndex = 4;
-            this.btnAnswerThree.Text = "button3";
-            this.btnAnswerThree.UseVisualStyleBackColor = true;
-            // 
-            // btnAnswerFour
-            // 
-            this.btnAnswerFour.Location = new System.Drawing.Point(90, 243);
-            this.btnAnswerFour.Name = "btnAnswerFour";
-            this.btnAnswerFour.Size = new System.Drawing.Size(179, 41);
-            this.btnAnswerFour.TabIndex = 5;
-            this.btnAnswerFour.Text = "button4";
-            this.btnAnswerFour.UseVisualStyleBackColor = true;
+            this.btnSkipQuestion.Location = new System.Drawing.Point(142, 330);
+            this.btnSkipQuestion.Name = "btnSkipQuestion";
+            this.btnSkipQuestion.Size = new System.Drawing.Size(75, 23);
+            this.btnSkipQuestion.TabIndex = 6;
+            this.btnSkipQuestion.Text = "Skip Question";
+            this.btnSkipQuestion.UseVisualStyleBackColor = true;
+            this.btnSkipQuestion.Click += new System.EventHandler(this.btnSkipQuestion_Click);
             // 
             // Form1
             // 
@@ -334,9 +376,11 @@
             this.tbpRegister.ResumeLayout(false);
             this.tbpRegister.PerformLayout();
             this.tbpGame.ResumeLayout(false);
-            this.pnlChooseGameMode.ResumeLayout(false);
             this.pnlGame.ResumeLayout(false);
             this.pnlGame.PerformLayout();
+            this.pnlChooseGameMode.ResumeLayout(false);
+            this.tpLeadboard.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLeaderboard)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -370,6 +414,9 @@
         private System.Windows.Forms.Button btnAnswerThree;
         private System.Windows.Forms.Button btnAnswerTwo;
         private System.Windows.Forms.Button btnAnswerOne;
+        private System.Windows.Forms.TabPage tpLeadboard;
+        private System.Windows.Forms.DataGridView dgvLeaderboard;
+        private System.Windows.Forms.Button btnSkipQuestion;
     }
 }
 

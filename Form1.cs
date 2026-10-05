@@ -17,8 +17,11 @@ namespace QuizMaster
     {
         int gameTime = 60;
         int currentTime = 0;
+        int questionTime = 5;
         DataTable dataTable = null;
         int row = 0;
+        int score = 0;
+        bool hasSkipped = false;
 
         Question question = null;
         List<Question> questionList = null;
@@ -35,6 +38,9 @@ namespace QuizMaster
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //timer ticks every second
+            tmrGame.Interval = 1000;
+
             btnAnswerOne.Click += CheckAnswer;
             btnAnswerTwo.Click += CheckAnswer;
             btnAnswerThree.Click += CheckAnswer;
@@ -189,7 +195,14 @@ namespace QuizMaster
             }
 
             ShuffleList();
+
             currentQuestion = 0;
+            score = 0;
+            currentTime = gameTime;
+            questionTime = 5;
+            hasSkipped = false;
+            btnSkipQuestion.Visible = true;
+
             DisplayQuestion();
             tmrGame.Start();
         }
@@ -305,6 +318,7 @@ namespace QuizMaster
             if(clickedButton.Text == correctAnswer)
             {
                 MessageBox.Show("Correct!");
+                score++;
             }
             else
             {
@@ -317,6 +331,7 @@ namespace QuizMaster
             // Check if there are more questions
             if (currentQuestion < currentQuestions.Count)
             {
+                questionTime = 5;
                 DisplayQuestion();
             }
             else
@@ -324,6 +339,115 @@ namespace QuizMaster
                 tmrGame.Stop();
                 MessageBox.Show("Quiz completed!");
             }
+        }
+
+        private void tmrGame_Tick(object sender, EventArgs e)
+        {
+            currentTime--;
+            questionTime--;
+
+            if(currentTime <= 0 )
+            {
+                tmrGame.Stop();
+                SaveScore();
+                MessageBox.Show("Time''s up");
+                return;
+            }
+
+            if(currentTime <= 0)
+            {
+                currentQuestion++;
+                //check to see if there are still questions
+                if(currentQuestion < currentQuestions.Count)
+                {
+                    questionTime = 5;
+                    DisplayQuestion();
+                }
+                else
+                {
+                    tmrGame.Stop();
+                    SaveScore();
+                    MessageBox.Show("Quiz Completed!");
+                }
+            }
+        }
+
+        private void SaveScore()
+        {
+            string playerName = tbxLoginName.Text.Trim();
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = "INSERT INTO score (PlayerName, Score, Date)" + "VALUES (@PlayerName, @SCore, @Date)";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@PlayerName", playerName);
+                    cmd.Parameters.AddWithValue("@Score", score);
+                    cmd.Parameters.AddWithValue("@Date", DateTime.Now);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        private void LoadLeaderboard()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = "SELECT PlayerName, Score, Date " +
+                               "FROM score " +
+                               "ORDER BY Score DESC";
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn))
+                {
+                    DataTable table = new DataTable();
+
+                    adapter.Fill(table);
+
+                    dgvLeaderboard.DataSource = table;
+                }
+            }
+        }
+
+        private void tbControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tbControl.SelectedTab == tpLeadboard)
+            {
+                LoadLeaderboard();
+            }
+        }
+
+        private void btnSkipQuestion_Click(object sender, EventArgs e)
+        {
+            if (hasSkipped)
+            {
+                MessageBox.Show("You can only skip one question per match.");
+                return;
+            }
+
+            hasSkipped = true;
+
+            currentQuestion++;
+
+            if (currentQuestion < currentQuestions.Count)
+            {
+                questionTime = 5;
+                DisplayQuestion();
+            }
+            else
+            {
+                tmrGame.Stop();
+
+                SaveScore();
+
+                MessageBox.Show("Quiz completed!");
+            }
+
+            btnSkipQuestion.Enabled = false;
         }
     }
 }
